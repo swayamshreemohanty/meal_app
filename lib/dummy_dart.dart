@@ -6,6 +6,7 @@ const DUMMY_CATEGORIES = const [
     id: 'c1',
     title: 'Italian',
     color: Colors.purple,
+    content: "This is Pizza",
   ),
   Category(
     id: 'c2',

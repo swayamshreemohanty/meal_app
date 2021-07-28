@@ -4,8 +4,10 @@ class CategoryMealsScreen extends StatelessWidget {
   // const ({ Key? key }) : super(key: key);
   final String categoryId;
   final String categoryTitle;
+  final String categorycontent;
 
-  CategoryMealsScreen(this.categoryId, this.categoryTitle);
+  CategoryMealsScreen(
+      this.categoryId, this.categoryTitle, this.categorycontent);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +16,9 @@ class CategoryMealsScreen extends StatelessWidget {
         title: Text(categoryTitle),
       ),
       body: Center(
-        child: Text('The recipes for the catagory!'),
+        child: Text(categorycontent == null
+            ? 'Waiting for the content'
+            : categorycontent),
       ),
     );
   }
