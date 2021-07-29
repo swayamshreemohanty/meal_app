@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import './dummy_dart.dart';
-import './category_item.dart';
+import '../dummy_dart.dart';
+import '../widgets/category_item.dart';
 
 class CategoriesScreen extends StatelessWidget {
-  // const ({ Key? key }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +17,6 @@ class CategoriesScreen extends StatelessWidget {
                 catData.id,
                 catData.title,
                 catData.color,
-                catData.content,
               ),
             )
             .toList(),
