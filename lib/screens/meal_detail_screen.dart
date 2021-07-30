@@ -38,7 +38,7 @@ class MealDetailScreen extends StatelessWidget {
                     color: Theme.of(context).accentColor,
                     child: Text(
                       selectedMeal.ingredients[index],
-                    )),,
+                    )),
                 itemCount: selectedMeal.ingredients.length),
           )
         ],
