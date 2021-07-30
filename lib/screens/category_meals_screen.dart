@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../dummy_dart.dart';
+import '../widgets/meal_item.dart';
 
 class CategoryMealsScreen extends StatelessWidget {
   //Key for the route from the main.dart also used with pushNamed (Named Routes)
@@ -12,7 +13,7 @@ class CategoryMealsScreen extends StatelessWidget {
 
     final categoryId = routeArgs['id'];
     final categoryTitle = routeArgs['title'];
-    
+
     final categoryMeals = DUMMY_MEALS.where((meal) {
       return meal.categories.contains(categoryId);
     }).toList();
@@ -23,7 +24,14 @@ class CategoryMealsScreen extends StatelessWidget {
       ),
       body: ListView.builder(
         itemBuilder: (ctx, index) {
-          return Text(categoryMeals[index].title);
+          return MealItem(
+            id: categoryMeals[index].id,
+            title: categoryMeals[index].title,
+            imageUrl: categoryMeals[index].imageUrl,
+            duration: categoryMeals[index].duration,
+            affordability: categoryMeals[index].affordability,
+            complexity: categoryMeals[index].complexity,
+          );
         },
         itemCount: categoryMeals.length,
       ),
