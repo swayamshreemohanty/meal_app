@@ -1,23 +1,64 @@
 import 'package:flutter/material.dart';
 import '../dummy_dart.dart';
 import '../widgets/meal_item.dart';
+import '../models/meal.dart';
 
-class CategoryMealsScreen extends StatelessWidget {
+class CategoryMealsScreen extends StatefulWidget {
   //Key for the route from the main.dart also used with pushNamed (Named Routes)
   static const routeName = '/Categories-Meal-Screen';
 
   @override
+  _CategoryMealsScreenState createState() => _CategoryMealsScreenState();
+}
+
+class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
+  String categoryTitle;
+  List<Meal> displayedMeals;
+  var _loadedInitData = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+//Here we are use didChangeDependencies() instead of initState(), because here we are using " ModalRoute.of(context)... " that is now liked by initState(),
+//i.e ModalRoute taps into behind scenes context setup with the inherited widget. Here this does not work because context generally is globally available in our state object
+//but not inside of initState because initState runs too early, it runs before our widget has been created or fully created and before we have a context for our widget.
+//So in initState we can't retrieve the route data unfortunately. So as a solution we are using didChangeDependencies().
+
+//here didChangeDependencies() will be triggered essentially whenever the references of the state change.
+//mean it will be called when the widget that belongs to the satte has been fully initialized and we can tap into context.
+//It will still run before build runs.
+
+//Here we can use initState(), if we wouldn't have required to use mdoel route of context in here.
+
+  @override
+  void didChangeDependencies() {
+    if (!_loadedInitData) {
+      final routeArgs = ModalRoute.of(context).settings.arguments
+          as Map<String, String>; // 1st String is 'Key', 2nd one is 'Value'
+
+      final categoryId = routeArgs['id'];
+      categoryTitle = routeArgs['title'];
+
+      displayedMeals = DUMMY_MEALS.where((meal) {
+        return meal.categories.contains(categoryId);
+      }).toList();
+      _loadedInitData = true;
+      super.didChangeDependencies();
+    }
+  }
+
+  void _removeMeal(String mealId) {
+    setState(
+      () {
+        displayedMeals.removeWhere((meal) => meal.id == mealId);
+      },
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final routeArgs = ModalRoute.of(context).settings.arguments
-        as Map<String, String>; // 1st String is 'Key', 2nd one is 'Value'
-
-    final categoryId = routeArgs['id'];
-    final categoryTitle = routeArgs['title'];
-
-    final categoryMeals = DUMMY_MEALS.where((meal) {
-      return meal.categories.contains(categoryId);
-    }).toList();
-
     return Scaffold(
       appBar: AppBar(
         title: Text(categoryTitle),
@@ -25,15 +66,16 @@ class CategoryMealsScreen extends StatelessWidget {
       body: ListView.builder(
         itemBuilder: (ctx, index) {
           return MealItem(
-            id: categoryMeals[index].id,
-            title: categoryMeals[index].title,
-            imageUrl: categoryMeals[index].imageUrl,
-            duration: categoryMeals[index].duration,
-            affordability: categoryMeals[index].affordability,
-            complexity: categoryMeals[index].complexity,
+            id: displayedMeals[index].id,
+            title: displayedMeals[index].title,
+            imageUrl: displayedMeals[index].imageUrl,
+            duration: displayedMeals[index].duration,
+            affordability: displayedMeals[index].affordability,
+            complexity: displayedMeals[index].complexity,
+            removeItem: _removeMeal,
           );
         },
-        itemCount: categoryMeals.length,
+        itemCount: displayedMeals.length,
       ),
     );
   }
