@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import '../dummy_dart.dart';
 import '../widgets/meal_item.dart';
 import '../models/meal.dart';
 
 class CategoryMealsScreen extends StatefulWidget {
-  //Key for the route from the main.dart also used with pushNamed (Named Routes)
   static const routeName = '/Categories-Meal-Screen';
+
+  final List<Meal> availableMeals;
+
+  CategoryMealsScreen(this.availableMeals);
 
   @override
   _CategoryMealsScreenState createState() => _CategoryMealsScreenState();
@@ -40,13 +42,12 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
 
       final categoryId = routeArgs['id'];
       categoryTitle = routeArgs['title'];
-
-      displayedMeals = DUMMY_MEALS.where((meal) {
+      displayedMeals = widget.availableMeals.where((meal) {
         return meal.categories.contains(categoryId);
       }).toList();
       _loadedInitData = true;
-      super.didChangeDependencies();
     }
+    super.didChangeDependencies();
   }
 
   void _removeMeal(String mealId) {
