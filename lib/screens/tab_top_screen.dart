@@ -1,3 +1,7 @@
+//*Important*//
+//This is currently not in used in the main app
+//
+
 import 'package:flutter/material.dart';
 import 'package:meal_app/screens/favorites_screen.dart';
 import '../screens/categories_screen.dart';
