@@ -45,7 +45,6 @@ class _FilterScreenState extends State<FilterScreen> {
         descrption,
       ),
       onChanged: updateValue,
-      //here newvalue(bool), will come after the switch beign tapped
     );
   }
 
@@ -87,6 +86,7 @@ class _FilterScreenState extends State<FilterScreen> {
                   'Only include gluten-free meals',
                   _glutenFree,
                   (newValue) {
+                    //here newvalue(bool), will come after the switch beign tapped
                     setState(
                       () {
                         _glutenFree = newValue;
@@ -125,8 +125,6 @@ class _FilterScreenState extends State<FilterScreen> {
                   (newValue) {
                     setState(
                       () {
-                        print("This is text");
-                        print(newValue);
                         _vegan = newValue;
                       },
                     );

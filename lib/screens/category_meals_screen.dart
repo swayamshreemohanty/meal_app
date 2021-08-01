@@ -15,13 +15,14 @@ class CategoryMealsScreen extends StatefulWidget {
 
 class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
   String categoryTitle;
+  String categoryId;
   List<Meal> displayedMeals;
   var _loadedInitData = false;
 
-  @override
-  void initState() {
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  // }
 
 //Here we are use didChangeDependencies() instead of initState(), because here we are using " ModalRoute.of(context)... " that is now liked by initState(),
 //i.e ModalRoute taps into behind scenes context setup with the inherited widget. Here this does not work because context generally is globally available in our state object
@@ -40,7 +41,7 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
       final routeArgs = ModalRoute.of(context).settings.arguments
           as Map<String, String>; // 1st String is 'Key', 2nd one is 'Value'
 
-      final categoryId = routeArgs['id'];
+      categoryId = routeArgs['id'];
       categoryTitle = routeArgs['title'];
       displayedMeals = widget.availableMeals.where((meal) {
         return meal.categories.contains(categoryId);
@@ -64,20 +65,24 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
       appBar: AppBar(
         title: Text(categoryTitle),
       ),
-      body: ListView.builder(
-        itemBuilder: (ctx, index) {
-          return MealItem(
-            id: displayedMeals[index].id,
-            title: displayedMeals[index].title,
-            imageUrl: displayedMeals[index].imageUrl,
-            duration: displayedMeals[index].duration,
-            affordability: displayedMeals[index].affordability,
-            complexity: displayedMeals[index].complexity,
-            removeItem: _removeMeal,
-          );
-        },
-        itemCount: displayedMeals.length,
-      ),
+      body: displayedMeals.isEmpty
+          ? Center(
+              child: Text('No content available'),
+            )
+          : ListView.builder(
+              itemBuilder: (ctx, index) {
+                return MealItem(
+                  id: displayedMeals[index].id,
+                  title: displayedMeals[index].title,
+                  imageUrl: displayedMeals[index].imageUrl,
+                  duration: displayedMeals[index].duration,
+                  affordability: displayedMeals[index].affordability,
+                  complexity: displayedMeals[index].complexity,
+                  removeItem: _removeMeal,
+                );
+              },
+              itemCount: displayedMeals.length,
+            ),
     );
   }
 }
