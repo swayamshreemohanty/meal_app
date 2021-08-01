@@ -56,16 +56,17 @@ class _FilterScreenState extends State<FilterScreen> {
         title: Text('Filter'),
         actions: <Widget>[
           IconButton(
-              icon: Icon(Icons.save),
-              onPressed: () {
-                final selectedFilters = {
-                  'gluten': _glutenFree,
-                  'lactose': _lactosFree,
-                  'vegan': _vegan,
-                  'vegeterian': _vegetarian,
-                };
-                widget.saveFilters(selectedFilters);
-              }),
+            icon: Icon(Icons.save),
+            onPressed: () {
+              final selectedFilters = {
+                'gluten': _glutenFree,
+                'lactose': _lactosFree,
+                'vegan': _vegan,
+                'vegetarian': _vegetarian,
+              };
+              widget.saveFilters(selectedFilters);
+            },
+          ),
         ],
       ),
       drawer: MainDrawer(),

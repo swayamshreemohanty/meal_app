@@ -94,7 +94,8 @@ class MealDetailScreen extends StatelessWidget {
         child: Icon(Icons.delete),
         onPressed: () {
           Navigator.of(context).pop(
-              mealId); //here "pop" remoce screens that are on the top of the stack
+            mealId,
+          ); //here "pop" remoce screens that are on the top of the stack
         },
       ),
     );

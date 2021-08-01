@@ -25,29 +25,33 @@ class _MyAppState extends State<MyApp> {
   List<Meal> _availableMeals = DUMMY_MEALS;
 
   void _setFilters(Map<String, bool> filterData) {
-    setState(() {
-      _filters = filterData;
-      _availableMeals = DUMMY_MEALS.where((meal) {
-        if (_filters['gluten'] && !meal.isGlutenFree) {
-          print("gluten asiba ktha nuha");
-          return false;
-        }
-        if (_filters['lactose'] && !meal.isLactoseFree) {
-          print("lactose asiba ktha nuha");
+    setState(
+      () {
+        _filters = filterData;
+        _availableMeals = DUMMY_MEALS.where(
+          (meal) {
+            if (_filters['gluten'] && !meal.isGlutenFree) {
+              print("gluten asiba ktha nuha");
+              return false;
+            }
+            if (_filters['lactose'] && !meal.isLactoseFree) {
+              print("lactose asiba ktha nuha");
 
-          return false;
-        }
-        if (_filters['vegan'] && !meal.isVegan) {
-          print("vegan asiba ktha nuha");
+              return false;
+            }
+            if (_filters['vegan'] && !meal.isVegan) {
+              print("vegan asiba ktha nuha");
 
-          return false;
-        }
-        if (_filters['vegetarian'] && !meal.isVegetarian) {
-          return false;
-        }
-        return true;
-      }).toList();
-    });
+              return false;
+            }
+            if (_filters['vegetarian'] && !meal.isVegetarian) {
+              return false;
+            }
+            return true;
+          },
+        ).toList();
+      },
+    );
   }
 
   @override
