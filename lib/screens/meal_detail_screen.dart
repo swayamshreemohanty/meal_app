@@ -104,8 +104,3 @@ class MealDetailScreen extends StatelessWidget {
     );
   }
 }
-
-        // onPressed: () {
-        //   Navigator.of(context).pop(
-        //     mealId,
-        //   );
