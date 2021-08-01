@@ -4,6 +4,10 @@ import 'package:meal_app/dummy_dart.dart';
 class MealDetailScreen extends StatelessWidget {
   static const routeName = '/meal-details';
 
+  final Function toggleFavorite;
+  final Function isFavorite;
+  MealDetailScreen(this.toggleFavorite, this.isFavorite);
+
   Widget buildSectionTitle(BuildContext context, String text) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
@@ -91,13 +95,17 @@ class MealDetailScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.delete),
-        onPressed: () {
-          Navigator.of(context).pop(
-            mealId,
-          ); //here "pop" remoce screens that are on the top of the stack
-        },
+        child: Icon(
+          isFavorite(mealId) ? Icons.star : Icons.star_border,
+        ),
+        onPressed: () => toggleFavorite(
+            mealId), //here "pop" remoce screens that are on the top of the stack
       ),
     );
   }
 }
+
+        // onPressed: () {
+        //   Navigator.of(context).pop(
+        //     mealId,
+        //   );
