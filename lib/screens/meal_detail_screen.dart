@@ -99,7 +99,7 @@ class MealDetailScreen extends StatelessWidget {
           isFavorite(mealId) ? Icons.star : Icons.star_border,
         ),
         onPressed: () => toggleFavorite(
-            mealId), //here "pop" remoce screens that are on the top of the stack
+            mealId),
       ),
     );
   }
