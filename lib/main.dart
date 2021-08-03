@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import './dummy_dart.dart';
 import './screens/filter_screen.dart';
 import './screens/tab_bottom_screen.dart';
@@ -7,7 +8,14 @@ import './screens/categories_screen.dart';
 import './screens/category_meals_screen.dart';
 import './models/meal.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+  runApp(MyApp());
+}
 
 class MyApp extends StatefulWidget {
   @override
